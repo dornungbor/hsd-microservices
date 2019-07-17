@@ -1,0 +1,30 @@
+
+server:
+  port: 8761
+
+spring:
+  profiles:
+    active: local-pc
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+
+---
+spring:
+  profiles: local-pc
+
+---
+spring:
+  profiles: local-docker
+  cloud:
+    client:
+      hostname: hsd-discovery
+eureka:
+  instance:
+    hostname: hsd-discovery

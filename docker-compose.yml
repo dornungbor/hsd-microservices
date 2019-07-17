@@ -1,0 +1,21 @@
+version: '3'
+services:
+  hsd-discovery:
+    build: ./hsd-discovery-server
+    container_name: hsd-discovery-server
+    ports:
+      - 8761:8761
+  hsd-server:
+    build: ./hsd-server
+    container_name: hsd-server
+    ports:
+      - 8081:8081
+    depends_on:
+      - "hsd-processor"
+  hsd-processor:
+    build: ./hsd-processor
+    container_name: hsd-processor
+    ports:
+      - 8082:8082
+    depends_on:
+      - "hsd-discovery"

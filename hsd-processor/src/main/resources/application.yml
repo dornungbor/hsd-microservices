@@ -1,0 +1,46 @@
+
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: local-pc
+  application:
+    name: hsd-processor
+  jackson:
+    default-property-inclusion: NON_NULL
+
+hsd-app-self:
+  credentials:
+    username: dornu
+    password: dornu
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+
+---
+spring:
+  profiles: local-pc
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true
+
+---
+spring:
+  profiles: local-docker
+  cloud:
+    client:
+      hostname: ${HOSTNAME}
+eureka:
+  instance:
+    hostname: ${HOSTNAME}
+    preferIpAddress: false
+  client:
+    serviceUrl:
+      defaultZone: http://hsd-discovery:8761/eureka
